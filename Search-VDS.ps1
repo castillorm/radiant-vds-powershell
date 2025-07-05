@@ -8,4 +8,4 @@ function Search-VDSUsers {
         -BaseDN "ou=people,dc=example,dc=com" `
         -Filter "(objectClass=person)" `
         -Attributes @("cn", "uid", "mail")
-        
+}
