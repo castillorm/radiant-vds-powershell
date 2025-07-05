@@ -1,0 +1,57 @@
+# PowerShell-specific
+*.ps1~        # Backup files
+*.psm1~       # Backup module files
+*.psd1~       # Backup data files
+
+# Secrets and credentials
+*.secret
+*.key
+*.pem
+*.pfx
+*.cer
+secrets.json
+config.json
+.env
+
+# IDEs and editors
+.vscode/
+.idea/
+*.code-workspace
+
+# OS-specific
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs and output
+*.log
+*.out
+*.bak
+
+# GitHub and PowerShell metadata
+*.ps1xml
+*.pssc
+*.psd1
+*.nupkg
+
+# Custom Excludes
+Credentials/*.json
+Credentials/*.txt
+
+# Node/npm if used for frontend (ignore if not applicable)
+node_modules/
+package-lock.json
+
+# Python virtual env (ignore if not using Python)
+venv/
+__pycache__/
+
+# Ignore compiled binaries or executables
+*.exe
+*.dll
+*.so
+*.zip
+
+# Mac .Spotlight
+.Spotlight-V100
+.Trashes
