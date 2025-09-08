@@ -8,8 +8,6 @@ function Invoke-VDSQuery {
         [string[]]$Attributes = @("*")
     )
 
-    $uri = "$BaseUrl/search"
-
     $body = @{
         baseDN = $BaseDN
         scope = $Scope
@@ -17,5 +15,6 @@ function Invoke-VDSQuery {
         attributes = $Attributes
     } | ConvertTo-Json -Depth 3
 
+    $uri = "$BaseUrl/search"
     Invoke-RestMethod -Method Post -Uri $uri -Headers $Headers -Body $body -ContentType "application/json"
 }

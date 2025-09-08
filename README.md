@@ -1,37 +1,68 @@
 # Radiant Logic VDS PowerShell Toolkit
 
-This repository contains PowerShell script examples for interacting with Radiant Logic Virtual Directory Server (VDS) using its REST API. These scripts are designed to help engineers connect, authenticate, and query VDS programmatically.
+This toolkit provides modular PowerShell scripts to connect to and interact with Radiant Logic Virtual Directory Server (VDS) using the REST API.
 
-## 🔧 Prerequisites
+---
 
-- PowerShell 5.1+ or PowerShell Core
-- VDS credentials (DN and password)
-- VDS REST API endpoint (e.g., `https://<host>:<port>/radiantone/rest`)
+## 📂 Folder Structure
 
-## 📂 Contents
+```
+VDS-PowerShell-Toolkit/
+│
+├── Main-VDS.ps1             # Master script to run VDS calls
+├── Connect-VDS.ps1          # Handles auth using embedded or secure credentials
+├── Query-VDS.ps1            # Performs search queries via the REST API
+├── Search-VDS.ps1           # Advanced search (e.g. filter by objectClass)
+├── .gitignore
+└── README.md
+```
 
-- `Connect-VDS.ps1`: Authenticate and generate REST headers.
-- `Query-VDS.ps1`: Perform a basic LDAP-style query via REST API.
-- `Search-VDS.ps1`: More advanced search options with filter and attributes.
+---
 
-## 🔐 Authentication
+## 🚀 Quick Start
 
-Basic authentication is used. Your credentials will be Base64 encoded in the headers. Ensure HTTPS is used to protect credentials.
-
-## 🚀 Usage
+1. **Clone this repository**
+2. **Edit `Main-VDS.ps1`**
+   - Set your `VdsUrl`, `Username`, and `Password` in the config section
+3. **Run the script**
 
 ```powershell
-# Set credentials
-$dn = "cn=admin,ou=globalusers,dc=example,dc=com"
-$password = "MySecretPassword"
-$baseUrl = "https://my-vds-host:7443/radiantone/rest"
+cd path\to\repo
+.\Main-VDS.ps1
+```
 
-# Import scripts
-. .\Connect-VDS.ps1
-. .\Query-VDS.ps1
+---
 
-# Get authentication headers
-$headers = Get-VDSAuthHeader -DN $dn -Password $password
+## 🔐 Security Options
 
-# Perform a search
-Invoke-VDSQuery -BaseUrl $baseUrl -Headers $headers -BaseDN "ou=people,dc=example,dc=com"
+### Option A: Hardcoded Credentials (Simple)
+In `Main-VDS.ps1`, embed:
+```powershell
+$Username = "cn=admin,..."
+$Password = "SuperSecret123"
+```
+
+> **Warning:** Only use in trusted/dev environments.
+
+---
+
+### Option B: Secure Credential Prompt (Recommended)
+
+Update `Connect-VDS.ps1` to:
+```powershell
+$cred = Get-Credential
+Connect-VDS -VdsUrl $VdsUrl -Username $cred.UserName -Password ($cred.GetNetworkCredential().Password)
+```
+
+---
+
+## ✅ Endpoints Used
+
+- `/radiantone/rest/version` → confirms API availability
+- `/radiantone/rest/search` → performs LDAP-style search
+
+---
+
+## 📜 License
+
+This project is licensed under the [MIT License](LICENSE).
